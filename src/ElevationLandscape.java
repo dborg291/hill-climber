@@ -59,28 +59,33 @@ public class ElevationLandscape extends Landscape {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				
-				adjustCell(i, j, peakCells);
-				adjustCell(j, i, peakCells);
+				if(peakCells.contains(i * j))
+				{
+					continue;
+				}
+				
+				adjustCell(i, j);
+				adjustCell(j, i);
 				
 			}
 		}
 		
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
-				adjustCell(i, j, peakCells);
-				adjustCell(j, i, peakCells);
+				
+				if(peakCells.contains(i * j))
+				{
+					continue;
+				}
+				adjustCell(i, j);
+				adjustCell(j, i);
 				
 			}
 		}
 	}
 	
-	private void adjustCell(int i, int j, ArrayList<Integer> peakCells) {
+	private void adjustCell(int i, int j) {
 		Random random = new Random();
-		
-			if(peakCells.contains(i * j))
-			{
-				return;
-			}
 		
 			Integer[] adj = getAdjacent(i, j);
 			int sum = 0;
