@@ -50,34 +50,38 @@ public class ElevationLandscape extends Landscape {
 		}
 
 		for (int i = 0; i < this.smoothingLevel; i++) {
-			diffuseElevation(i);
+			diffuseElevation(i, peakCells);
 		}
 	}
 	
-	private void diffuseElevation(int smoothingLevel) {
+	private void diffuseElevation(int smoothingLevel, ArrayList<Integer> peakCells) {
 		
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				
-				adjustCell(i, j);
-				adjustCell(j, i);
+				adjustCell(i, j, peakCells);
+				adjustCell(j, i, peakCells);
 				
 			}
 		}
 		
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
-				adjustCell(i, j);
-				adjustCell(j, i);
+				adjustCell(i, j, peakCells);
+				adjustCell(j, i, peakCells);
 				
 			}
 		}
-		
 	}
 	
-	private void adjustCell(int i, int j) {
+	private void adjustCell(int i, int j, ArrayList<Integer> peakCells) {
 		Random random = new Random();
-
+		
+			if(peakCells.contains(i * j))
+			{
+				return;
+			}
+		
 			Integer[] adj = getAdjacent(i, j);
 			int sum = 0;
 		
